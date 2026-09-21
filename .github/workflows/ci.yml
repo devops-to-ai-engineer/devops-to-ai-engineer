@@ -1,0 +1,39 @@
+# ci.yml
+#
+# Placeholder CI pipeline. Currently just lints and confirms the repo
+# installs cleanly; will run `pytest` and the AIOps eval suite once
+# `tests/` and the corresponding code exist (see tests/README.md).
+
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint-and-structure-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies (if requirements.txt exists)
+        run: |
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Lint (if any Python files exist)
+        run: |
+          pip install ruff
+          if find . -name "*.py" | grep -q .; then ruff check . ; else echo "No Python files yet — skipping lint"; fi
+
+      # TODO once tests/ has real tests:
+      # - name: Run tests
+      #   run: pytest -q
+      #
+      # TODO once aiops/llm-eval/ has a real eval suite:
+      # - name: Run AIOps agent eval suite
+      #   run: python -m aiops.llm_eval.run_eval
