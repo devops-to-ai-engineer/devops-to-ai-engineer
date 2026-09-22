@@ -26,6 +26,7 @@ done right, is DevOps rigor applied to AI/ML systems — models fail in
 production the same way services do: silently, under load, at 3 AM. This
 repo is where I build and document that combined skill set in public.
 
+- BIBHUTI BHUSAN PANDA
 - 🎓 B.Tech, Computer Science & Engineering
 - ☁️ AWS · Azure · IBM Cloud certified
 - 💼 Currently: Lead Software Engineer — AIOps
